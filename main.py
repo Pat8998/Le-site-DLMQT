@@ -1,14 +1,16 @@
-from flask import url_for, Flask, request, json, jsonify, render_template, send_from_directory
+from flask import url_for, Flask, request, json, jsonify, render_template, send_from_directory, redirect
 import os
+from static.Check_MAC import *
 from flask_sock import Sock
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 import json
 import time
 
+
 app = Flask(__name__)
 sockets = Sock(app)
-send_message = False
+WebSock = None
 # Path to your JSON file
 json_file_path = os.path.join(os.path.dirname(__file__), 'database')
 class JSONFileEventHandler(FileSystemEventHandler):
@@ -19,14 +21,20 @@ class JSONFileEventHandler(FileSystemEventHandler):
             print('json_updated')
             global WebSock
             WebSock.send('json_updated')
-            time.sleep(0.5)
+            """for i in WebSock:
+                i.send('json_updated')"""
 
 
 @sockets.route('/ws')
 def echo_socket(ws):
+    global WebSock
+    """
+    if WebSock == None :
+        WebSock = [ws]
+    else :
+        WebSock = WebSock.append(ws)"""
+    WebSock = ws
     while True:
-        global WebSock
-        WebSock =ws
         message = ws.receive()
         if message:
             print('Client said:', message)
@@ -37,17 +45,28 @@ def echo_socket(ws):
 event_handler = JSONFileEventHandler()
 observer = Observer()
 observer.schedule(event_handler, path=json_file_path, recursive=False)
-observer.start()
+observer.start()    
+
 
 @app.route('/')
 def home():
-    return render_template('main.html')
-
+    if Check_MAC(request.remote_addr) :
+        return render_template('main.html')
+    else :
+        return redirect("about:blank")
+    
 @app.route('/database/database.json')
 def get_json():
     return send_from_directory('database', "database.json")
+@app.route('/favicon.ico')
+def get_ico():
+    return send_from_directory('/', "favicon.ico")
+@app.route('/ip')
+def get_ip():
+    return request.host.split(':')[0]
 
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port='20079')
+    #threading.Thread(target=start_sniffing, daemon=True).start()
+    app.run(debug=True, host='0.0.0.0', port='6969')

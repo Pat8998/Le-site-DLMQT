@@ -1,7 +1,12 @@
 const jsonFile = '../database/database.json';
 let sortedBy = 0;
 let sortWay = true;
-const ws = new WebSocket('ws://127.0.0.1:20079/ws');
+
+async function server_ip() {
+    const response = await fetch('ip');
+    const data = await response.text(); // Assuming the response contains plain text IP address
+    return data;
+}
 
 // Function to fetch JSON data from file using fetch API
 async function fetchJSONFile(path) {
@@ -107,13 +112,50 @@ async function fetchDataAndRefresh() {
     //setTimeout(fetchDataAndRefresh, 500); // Refresh every .5 seconds
 }
 
-ws.onmessage = function (event) {
-    console.log('Message from server:', event.data);
-    
-    fetchDataAndRefresh();
-};
 
-ws.onopen = function(event) {
-    console.log("Connection established.");
-};
+
+let ws = null; // Initialize as null
+
+
+
+function createWebSocket(ip) {
+    if (ws) {
+        // Close existing WebSocket connection if it's open
+        ws.close();
+    }
+
+    ws = new WebSocket('ws://' + ip + ':6969/ws');
+
+    ws.onopen = function() {
+        console.log("Connection established.");
+        
+        fetchDataAndRefresh();
+        // Additional logic upon WebSocket open
+    };
+
+    ws.onmessage = function(event) {
+        console.log('Message from server:', event.data);
+        
+        fetchDataAndRefresh();
+    };
+
+    ws.onclose = function(event) {
+        console.log('WebSocket connection closed.');
+        connectToServer();
+        // reConnect when it disconnects
+    };
+
+    ws.onerror = function(error) {
+        console.error('WebSocket error:', error);
+        // Handle WebSocket error
+    };
+
+}async function connectToServer() {
+    const ip = await server_ip();
+    createWebSocket(ip);
+}connectToServer();
+
+
+
+
 fetchDataAndRefresh();
