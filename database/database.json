@@ -1,0 +1,100 @@
+[
+    {
+        "name": "caca",
+        "Connected": false,
+        "MAC": "0A:45:65:AF",
+        "IP": "192.168.1.69",
+        "LastIP": "192.168.1.69"
+    },
+    {
+        "name": "4PzUJt",
+        "Connected": true,
+        "MAC": "84:23:6a:1b:bf:03",
+        "IP": "48.225.107.44",
+        "LastIP": "19.67.145.85"
+    },
+    {
+        "name": "0JNYmE",
+        "Connected": false,
+        "MAC": "2c:7f:80:9a:5e:1d",
+        "IP": null,
+        "LastIP": null
+    },
+    {
+        "name": "dfsgsg",
+        "Connected": true,
+        "MAC": "94:fa:29:8d:70:02",
+        "IP": null,
+        "LastIP": "179.158.106.95"
+    },
+    {
+        "name": "b9CVFb",
+        "Connected": true,
+        "MAC": "55:5b:46:1d:34:eb",
+        "IP": null,
+        "LastIP": "69.103.17.99"
+    },
+    {
+        "name": "caca",
+        "Connected": true,
+        "MAC": "1d:02:11:ea:c7:99",
+        "IP": "26.137.91.240",
+        "LastIP": "91.206.246.116"
+    },
+    {
+        "name": "caca",
+        "Connected": true,
+        "MAC": "1d:02:11:ea:c7:99",
+        "IP": "26.137.91.240",
+        "LastIP": "91.206.246.116"
+    },
+    {
+        "name": "caca",
+        "Connected": true,
+        "MAC": "1d:02:11:ea:c7:99",
+        "IP": "26.137.91.240",
+        "LastIP": "91.206.246.116"
+    },
+    {
+        "name": "caca",
+        "Connected": true,
+        "MAC": "1d:02:11:ea:c7:99",
+        "IP": "26.137.91.240",
+        "LastIP": "91.206.246.116"
+    },
+    {
+        "name": "caca",
+        "Connected": false,
+        "MAC": "ad:4e:73:cf:4b:3e",
+        "IP": null,
+        "LastIP": "235.72.98.222"
+    },
+    {
+        "name": "caca4",
+        "Connected": true,
+        "MAC": "23:0c:57:5a:cf:4a",
+        "IP": null,
+        "LastIP": "241.95.123.85"
+    },
+    {
+        "name": "sdgfs",
+        "Connected": false,
+        "MAC": "7e:42:9b:82:e5:6d",
+        "IP": "150.110.92.181",
+        "LastIP": null
+    },
+    {
+        "name": "sef",
+        "Connected": true,
+        "MAC": "f0:ba:2c:18:56:ef",
+        "IP": "93.25.152.207",
+        "LastIP": "143.109.56.38"
+    },
+    {
+        "name": "caca",
+        "Connected": true,
+        "MAC": "cc:88:a1:2b:3a:f2",
+        "IP": "25.108.66.178",
+        "LastIP": "3"
+    }
+]

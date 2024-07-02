@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTML Table Example</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Connections</h2>
+
+
+<table id="jsonTable">
+    <thead>
+        <tr>
+            <th id="Header name">Name</th>
+            <th id="Header Connected">Connected</th>
+            <th id="Header MAC">MAC</th>
+            <th id="Header IP">Current IP</th>
+            <th id="Header LIP">Last IP</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Table rows will be inserted here by JavaScript -->
+    </tbody>
+</table>
+
+
+
+<!-- Include the script.js file -->
+<script src="../static/script.js"></script>
+
+
+</body>
+</html>
