@@ -8,7 +8,35 @@ async function server_ip() {
     const data = await response.text(); // Assuming the response contains plain text IP address
     return data;
 }
-
+function copyToClipboard(text) {
+    // Create a textarea element dynamically
+    const textarea = document.createElement('textarea');
+    
+    // Set the value of the textarea to the text to be copied
+    textarea.value = text;
+    
+    // Make the textarea out of view by setting absolute positioning and moving it out of the viewport
+    textarea.style.position = 'fixed';
+    textarea.style.left = '-9999px';
+    textarea.style.top = '-9999px';
+    
+    // Append the textarea to the document body
+    document.body.appendChild(textarea);
+    
+    // Select the text in the textarea
+    textarea.select();
+    
+    // Execute the copy command
+    document.execCommand('copy');
+    
+    // Remove the textarea from the document body
+    document.body.removeChild(textarea);
+    var statusMessage = document.getElementById('statusMessage');
+    statusMessage.textContent = 'Action completed successfully.';
+    setTimeout(function() {
+      statusMessage.textContent = '';
+    }, 3000); // 3000 milliseconds (3 seconds) for example
+}
 // Function to fetch JSON data from file using fetch API
 async function fetchJSONFile(path) {
     return fetch(path)
@@ -55,6 +83,7 @@ function generateTable(jsonData) {
             cell.appendChild(button); // Append button to the cell
         } else {
             cell.textContent = rowData[key]; // Otherwise, set text content
+            cell.addEventListener("click", () =>  {copyToClipboard(cell.textContent)})
         }
         row.appendChild(cell); // Append cell to the row
     });

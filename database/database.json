@@ -14,13 +14,6 @@
         "LastIP": "192.168.1.70"
     },
     {
-        "name": "Bedroom",
-        "Connected": true,
-        "MAC": "00:1A:2B:3C:4D:61",
-        "IP": "192.168.1.41",
-        "LastIP": "192.168.1.40"
-    },
-    {
         "name": "Living Room",
         "Connected": true,
         "MAC": "00:1A:2B:3C:4D:5F",
@@ -49,6 +42,13 @@
         "LastIP": "192.168.1.90"
     },
     {
+        "name": "Attic",
+        "Connected": false,
+        "MAC": "00:1A:2B:3C:4D:65",
+        "IP": "192.168.1.81",
+        "LastIP": "192.168.1.80"
+    },
+    {
         "name": "Kitchen",
         "Connected": false,
         "MAC": "00:1A:2B:3C:4D:60",
@@ -56,10 +56,10 @@
         "LastIP": "192.168.1.30"
     },
     {
-        "name": "Attic",
+        "name": "Bedroom",
         "Connected": false,
-        "MAC": "00:1A:2B:3C:4D:65",
-        "IP": "192.168.1.81",
-        "LastIP": "192.168.1.80"
+        "MAC": "00:1A:2B:3C:4D:61",
+        "IP": "192.168.1.41",
+        "LastIP": "192.168.1.40"
     }
 ]
