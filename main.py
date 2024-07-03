@@ -70,7 +70,6 @@ def disconnect():
     device = request.args.get('device')
     try:
         Disconnect(device)
-        print('success')
         return 'Success'
     except :
         return 'Fail'
