@@ -32,10 +32,11 @@ function copyToClipboard(text) {
     // Remove the textarea from the document body
     document.body.removeChild(textarea);
     var statusMessage = document.getElementById('statusMessage');
-    statusMessage.textContent = 'Action completed successfully.';
+    statusMessage.textContent = 'Copied '+text;
+    statusMessage.style.display = 'inline-block'; // Show the status message
     setTimeout(function() {
-      statusMessage.textContent = '';
-    }, 3000); // 3000 milliseconds (3 seconds) for example
+        statusMessage.style.display = 'none'; // Hide the status message after 3 seconds
+    }, 1000); // 3000 milliseconds (3 seconds) for example
 }
 // Function to fetch JSON data from file using fetch API
 async function fetchJSONFile(path) {

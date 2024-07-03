@@ -17,6 +17,18 @@
         th {
             background-color: #f2f2f2;
         }
+        .status-message {
+      position: fixed; /* Fixed positioning to stay at the top */
+      top: 10px; /* Distance from the top of the viewport */
+      left: 50%; /* Center horizontally */
+      transform: translateX(-50%); /* Center horizontally using transform */
+      background-color: rgb(183, 0, 255); /* Magenta background color */
+      color: rgb(215, 199, 253); /* White text color for contrast */
+      padding: 10px; /* Padding around the text */
+      border-radius: 5px; /* Rounded corners */
+      display: none; /* Initially hidden */
+      z-index: 9999; /* Ensure it appears above other content */
+    }
     </style>
 </head>
 <body>
@@ -39,20 +51,8 @@
     </tbody>
 </table>
 
-<span id="statusMessage"></span>  
-<!--style>
-    .status-message {
-      position: absolute;
-      top: 50px; /* Adjust top position */
-      left: 50%; /* Center horizontally */
-      transform: translateX(-50%);
-      background-color: #000000;
-      padding: 10px;
-      border: 1px solid #ff00ea;
-      border-radius: 5px;
-      display: none;
-    }
-  </style-->
+<span id="statusMessage" class="status-message">Copied successfully.</span>
+
 
 <!-- Include the script.js file -->
 <script src="../static/script.js"></script>
