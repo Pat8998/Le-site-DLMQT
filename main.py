@@ -4,6 +4,7 @@ from static.Check_MAC import *
 from flask_sock import Sock
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
+from static.alias import *
 import json
 import time
 
@@ -64,6 +65,15 @@ def get_ico():
 @app.route('/ip')
 def get_ip():
     return request.host.split(':')[0]
+@app.route('/disconnect', methods=['GET'])
+def disconnect():
+    device = request.args.get('device')
+    try:
+        Disconnect(device)
+        print('success')
+        return 'Success'
+    except :
+        return 'Fail'
 
 
 

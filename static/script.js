@@ -1,6 +1,7 @@
 const jsonFile = '../database/database.json';
 let sortedBy = 0;
 let sortWay = true;
+let ws = null; // Initialize as null
 
 async function server_ip() {
     const response = await fetch('ip');
@@ -43,11 +44,14 @@ function generateTable(jsonData) {
             const button = document.createElement("button");
             button.textContent = rowData[key];
             button.addEventListener("click", () => {
-                // Define action when button is clicked
-                alert(`You clicked row with data: ${JSON.stringify(rowData)}`);
-                ws.send('caca')
-                // Example: You can perform other actions here based on rowData
-            });
+                fetch('disconnect?device='+encodeURIComponent(rowData['MAC'])).then(
+                    reponse => reponse.text().then(value => {
+                        if (value == 'Success'){
+                            console.log('Successfully disconnected device:'+rowData['name'])
+                        } else {
+                            
+                            alert(`Failed to Disconnect ${rowData['name']} (MAC: ${rowData['MAC']})`);
+                        }}))})
             cell.appendChild(button); // Append button to the cell
         } else {
             cell.textContent = rowData[key]; // Otherwise, set text content
@@ -114,7 +118,6 @@ async function fetchDataAndRefresh() {
 
 
 
-let ws = null; // Initialize as null
 
 
 
@@ -153,9 +156,9 @@ function createWebSocket(ip) {
 }async function connectToServer() {
     const ip = await server_ip();
     createWebSocket(ip);
-}connectToServer();
+}
 
 
 
-
+connectToServer();
 fetchDataAndRefresh();

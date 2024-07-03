@@ -1,11 +1,8 @@
-#TODO : change value
-
-
-
+import os
 import json
 
 DB = "database.json" #path to database
-
+DB = os.path.dirname(os.path.abspath(__file__))+'\\'+DB
 
 
 
@@ -34,6 +31,29 @@ def addPlace( MAC:str, Connected:bool, name:str="Noname", LastIP:str=None, Curre
         db.seek(0)
         json.dump(data, db, indent=4)
         db.truncate()
+        
+def ChangeValue( MAC:str, Connected:bool=None, name:str=None, LastIP:str=None, CurrentIP=None):
+    with open(DB, 'r+') as db:
+        data = json.load(db)
+        if data != []:
+            for entry in data:
+                if entry['MAC']==MAC:        #Refresh if MAC already exists
+                    if LastIP is None:  # check to keep the data if no fresh one has been detected
+                        LastIP = entry.get('LastIP', LastIP)
+                    if CurrentIP is None:  # check to keep the data if no fresh one has been detected
+                        CurrentIP = entry.get('IP', CurrentIP)
+                    if name is None:  # check to keep the data if no fresh one has been detected
+                        name = entry.get('name', name)
+                    if Connected is None:
+                        Connected = entry.get('Connected', Connected)
+                    data = removeEntries(data, "MAC", MAC)
+                    data.append({"name" : name, "Connected":Connected, "MAC":MAC, "IP": CurrentIP, "LastIP":LastIP})        
+                    db.seek(0)
+                    json.dump(data, db, indent=4)
+                    db.truncate()
+                else:
+                    print("ERROR : Can't change data if it doesn't exist yet")
+
 
 def removePlace(name):
     new_data = []
