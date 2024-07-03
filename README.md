@@ -1,3 +1,5 @@
-#Le-site-DLMQT#
-##TODO list :##
- - allow multiple divices at once (for websocket)
+# **Le-site-DLMQT**
+
+## TODO list:
+- Add Blacklist (Same as connected) + Checkbox to remove them?
+- Add VIP option (ez, same as Connected)

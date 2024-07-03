@@ -1,10 +1,17 @@
 [
     {
-        "name": "Garden",
+        "name": "Office",
         "Connected": true,
-        "MAC": "00:1A:2B:3C:4D:63",
-        "IP": "192.168.1.61",
-        "LastIP": "192.168.1.60"
+        "MAC": "00:1A:2B:3C:4D:5E",
+        "IP": "192.168.1.11",
+        "LastIP": "192.168.1.10"
+    },
+    {
+        "name": "Kitchen",
+        "Connected": true,
+        "MAC": "00:1A:2B:3C:4D:60",
+        "IP": "192.168.1.31",
+        "LastIP": "192.168.1.30"
     },
     {
         "name": "Basement",
@@ -14,11 +21,18 @@
         "LastIP": "192.168.1.70"
     },
     {
-        "name": "Living Room",
+        "name": "Bedroom",
         "Connected": true,
-        "MAC": "00:1A:2B:3C:4D:5F",
-        "IP": "192.168.1.21",
-        "LastIP": "192.168.1.20"
+        "MAC": "00:1A:2B:3C:4D:61",
+        "IP": "192.168.1.41",
+        "LastIP": "192.168.1.40"
+    },
+    {
+        "name": "Study",
+        "Connected": true,
+        "MAC": "00:1A:2B:3C:4D:66",
+        "IP": "192.168.1.91",
+        "LastIP": "192.168.1.90"
     },
     {
         "name": "Garage",
@@ -28,18 +42,18 @@
         "LastIP": "192.168.1.50"
     },
     {
-        "name": "Office",
+        "name": "Garden",
         "Connected": true,
-        "MAC": "00:1A:2B:3C:4D:5E",
-        "IP": "192.168.1.11",
-        "LastIP": "192.168.1.10"
+        "MAC": "00:1A:2B:3C:4D:63",
+        "IP": "192.168.1.61",
+        "LastIP": "192.168.1.60"
     },
     {
-        "name": "Study",
-        "Connected": false,
-        "MAC": "00:1A:2B:3C:4D:66",
-        "IP": "192.168.1.91",
-        "LastIP": "192.168.1.90"
+        "name": "Living Room",
+        "Connected": true,
+        "MAC": "00:1A:2B:3C:4D:5F",
+        "IP": "192.168.1.21",
+        "LastIP": "192.168.1.20"
     },
     {
         "name": "Attic",
@@ -47,19 +61,5 @@
         "MAC": "00:1A:2B:3C:4D:65",
         "IP": "192.168.1.81",
         "LastIP": "192.168.1.80"
-    },
-    {
-        "name": "Kitchen",
-        "Connected": false,
-        "MAC": "00:1A:2B:3C:4D:60",
-        "IP": "192.168.1.31",
-        "LastIP": "192.168.1.30"
-    },
-    {
-        "name": "Bedroom",
-        "Connected": false,
-        "MAC": "00:1A:2B:3C:4D:61",
-        "IP": "192.168.1.41",
-        "LastIP": "192.168.1.40"
     }
 ]
