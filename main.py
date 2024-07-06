@@ -5,6 +5,7 @@ from flask_sock import Sock
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from static.alias import *
+import hashlib
 import json
 import time
 
@@ -49,7 +50,7 @@ def home():
     if Check_MAC(request.remote_addr):
         return render_template('main.html')
     else:
-        return redirect("https://youtu.be/dQw4w9WgXcQ")
+        return render_template('Connection.html')
     
 @app.route('/database/database.json')
 def get_json():
@@ -72,7 +73,25 @@ def disconnect():
         return 'Success'
     except:
         return 'Fail'
+    
+
+@app.route('/login', methods=['GET'])
+def Login():
+    login = request.args.get('login')
+    hash_obj = hashlib.sha256()
+    hash_obj.update(login.encode('utf-8'))
+    hash_obj.update(hash_obj.hexdigest().encode('utf-8'))
+    print(hash_obj.hexdigest())
+    if hash_obj.hexdigest() == '43568a72689a2759140dfb25d2301912913e5c2d54d450fc55389acacb8ab1dc' :
+        Whitelist.append(get_mac(request.remote_addr))
+        return 'loginOK'
+    else:
+        return "Caca"
+
+
+
+
+
 
 if __name__ == '__main__':
-    # threading.Thread(target=start_sniffing, daemon=True).start()
     app.run(debug=True, host='0.0.0.0', port=6969)

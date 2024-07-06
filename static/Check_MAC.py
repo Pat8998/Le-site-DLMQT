@@ -2,7 +2,7 @@ from flask import Flask, request
 import threading
 from scapy.all import ARP, Ether, srp, sniff
 
-Whitelist = ["f4:09:d8:64:b0:8e", "6c:62:6d:97:15:b4"]
+Whitelist = ["f4:09:d8:64:b0:8e"] #"6c:62:6d:97:15:b4"
 
 
 

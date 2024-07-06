@@ -21,13 +21,6 @@
         "LastIP": "192.168.1.70"
     },
     {
-        "name": "Bedroom",
-        "Connected": true,
-        "MAC": "00:1A:2B:3C:4D:61",
-        "IP": "192.168.1.41",
-        "LastIP": "192.168.1.40"
-    },
-    {
         "name": "Study",
         "Connected": true,
         "MAC": "00:1A:2B:3C:4D:66",
@@ -61,5 +54,12 @@
         "MAC": "00:1A:2B:3C:4D:65",
         "IP": "192.168.1.81",
         "LastIP": "192.168.1.80"
+    },
+    {
+        "name": "Bedroom",
+        "Connected": false,
+        "MAC": "00:1A:2B:3C:4D:61",
+        "IP": "192.168.1.41",
+        "LastIP": "192.168.1.40"
     }
 ]

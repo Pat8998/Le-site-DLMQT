@@ -3,6 +3,7 @@ let sortedBy = 0;
 let sortWay = true;
 let ws = null; // Initialize as null
 
+
 async function server_ip() {
     const response = await fetch('ip');
     const data = await response.text(); // Assuming the response contains plain text IP address
@@ -74,7 +75,7 @@ function generateTable(jsonData) {
             button.textContent = rowData[key];
             button.addEventListener("click", () => {
                 fetch('disconnect?device='+encodeURIComponent(rowData['MAC'])).then(
-                    reponse => reponse.text().then(value => {
+                    response => response.text().then(value => {
                         if (value == 'Success'){
                             console.log('Successfully disconnected device:'+rowData['name'])
                         } else {
