@@ -2,6 +2,8 @@ const jsonFile = '../database/database.json';
 let sortedBy = 0;
 let sortWay = true;
 let ws = null; // Initialize as null
+let ShowBlacklist = true;
+let ShowVIPonly = false;
 
 
 async function server_ip() {
@@ -63,51 +65,54 @@ function generateTable(jsonData) {
         }
     
 
-    jsonData.forEach(rowData => {
-        const row = document.createElement("tr");
+    jsonData.forEach(rowData => {       
+        if ((ShowVIPonly && rowData['VIP']) || (!ShowVIPonly && ShowBlacklist) || (!ShowVIPonly && !ShowBlacklist && !rowData['Blacklisted'])){
 
-       // Iterate through keys in rowData
-       Object.keys(rowData).forEach((key, index) => {
-        const cell = document.createElement("td");
-        if (index == 1) { // Check if it's the second column (index 1)
-            // Create a button for the second column
-            const button = document.createElement("button");
-            button.textContent = rowData[key];
-            button.addEventListener("click", () => {
-                fetch('disconnect?device='+encodeURIComponent(rowData['MAC'])).then(
-                    response => response.text().then(value => {
-                        if (value == 'Success'){
-                            console.log('Successfully disconnected device:'+rowData['name'])
-                        } else {
-                            
-                            alert(`Failed to Disconnect ${rowData['name']} (MAC: ${rowData['MAC']})`);
-                        }}))})
-            cell.appendChild(button); // Append button to the cell
-        } else if(index > 4) { // Check if it's the last 2 rows
-            // Create a button for the those
-            const button = document.createElement("button");
-            button.textContent = rowData[key];
-            button.addEventListener("click", () => {
-                fetch('change_priority?device=' + encodeURIComponent(rowData['MAC']) + 
-      '&priority=' + encodeURIComponent((index - 5) ? "VIP" : "blacklist") + 
-      '&previousvalue=' + encodeURIComponent(rowData[key])).then( 
-                    response => response.text().then(value => {
-                        if (value == 'Success'){
-                            console.log('Successfully changed value: '+rowData['name'])
-                        } else {
-                            
-                            alert(`Failed to Change Value ${rowData['name']} (MAC: ${rowData['MAC']})`);
-                        }}))})
-            cell.appendChild(button); // Append button to the cell
-        } else {
-            cell.textContent = rowData[key]; // Otherwise, set text content
-            cell.addEventListener("click", () =>  {copyToClipboard(cell.textContent)})
-        }
-        row.appendChild(cell); // Append cell to the row
-    });
+            const row = document.createElement("tr");
 
-        tableBody.appendChild(row);
-    });
+
+            // Iterate through keys in rowData
+            Object.keys(rowData).forEach((key, index) => {
+                const cell = document.createElement("td");
+                if (index == 1) { // Check if it's the second column (index 1)
+                    // Create a button for the second column
+                    const button = document.createElement("button");
+                    button.textContent = rowData[key];
+                    button.addEventListener("click", () => {
+                        fetch('disconnect?device='+encodeURIComponent(rowData['MAC'])).then(
+                            response => response.text().then(value => {
+                                if (value == 'Success'){
+                                    console.log('Successfully disconnected device:'+rowData['name'])
+                                } else {
+                                    
+                                    alert(`Failed to Disconnect ${rowData['name']} (MAC: ${rowData['MAC']})`);
+                                }}))})
+                    cell.appendChild(button); // Append button to the cell
+                } else if(index > 4) { // Check if it's the last 2 rows
+                    // Create a button for the those
+                    const button = document.createElement("button");
+                    button.textContent = rowData[key];
+                    button.addEventListener("click", () => {
+                        fetch('change_priority?device=' + encodeURIComponent(rowData['MAC']) + 
+            '&priority=' + encodeURIComponent((index - 5) ? "VIP" : "blacklist") + 
+            '&previousvalue=' + encodeURIComponent(rowData[key])).then( 
+                            response => response.text().then(value => {
+                                if (value == 'Success'){
+                                    console.log('Successfully changed value: '+rowData['name'])
+                                } else {
+                                    
+                                    alert(`Failed to Change Value ${rowData['name']} (MAC: ${rowData['MAC']})`);
+                                }}))})
+                    cell.appendChild(button); // Append button to the cell
+                } else {
+                    cell.textContent = rowData[key]; // Otherwise, set text content
+                    cell.addEventListener("click", () =>  {copyToClipboard(cell.textContent)})
+                }
+                row.appendChild(cell); // Append cell to the row
+            });
+
+                tableBody.appendChild(row);
+    }});
     sortTable(sortedBy, sortWay);
 }
 
@@ -153,13 +158,22 @@ document.getElementById("Header IP").addEventListener("click", () =>  {sortWay =
 document.getElementById("Header LIP").addEventListener("click", () =>  {sortWay = !sortWay; sortTable(4, sortWay)}); 
 document.getElementById("Header Blacklist").addEventListener("click", () =>  {sortWay = !sortWay; sortTable(5, sortWay)}); 
 document.getElementById("Header VIP").addEventListener("click", () =>  {sortWay = !sortWay; sortTable(6, sortWay)}); 
-
+document.getElementById('BlacklistCheckbox').addEventListener('change', function() {
+    ShowBlacklist = this.checked
+    fetchDataAndRefresh()
+});        
+document.getElementById('VIPCheckbox').addEventListener('change', function() {
+    ShowVIPonly = this.checked
+    fetchDataAndRefresh()
+});
 
        // Function to fetch JSON data, generate table, and refresh every 5 seconds
 async function fetchDataAndRefresh() {
         // Call fetchJSONFile to load data from database/database.json
     fetchJSONFile(jsonFile)
     .then(data => {
+        document.getElementById('VIPCheckbox').checked = ShowVIPonly
+        document.getElementById('BlacklistCheckbox').checked = ShowBlacklist
         generateTable(data);
     });
     //setTimeout(fetchDataAndRefresh, 500); // Refresh every .5 seconds
