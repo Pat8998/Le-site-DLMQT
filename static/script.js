@@ -2,10 +2,11 @@ const jsonFile = '../database/database.json';
 let sortedBy = 0;
 let sortWay = true;
 let ws = null; // Initialize as null
-let ShowBlacklist = true;
-let ShowVIPonly = false;
-let ShowConnectedOnly = true;
-
+const states = {
+    showConnected: true,
+    showBlacklist: true,
+    showVIP: false
+};
 
 async function server_ip() {
     const response = await fetch('ip');
@@ -67,7 +68,7 @@ function generateTable(jsonData) {
     
 
     jsonData.forEach(rowData => {       
-        if (((ShowVIPonly && rowData['VIP']) || (!ShowVIPonly && ShowBlacklist) || (!ShowVIPonly && !ShowBlacklist && !rowData['Blacklisted'])) && (!ShowConnectedOnly || rowData['Connected'])){
+        if (((states['showVIP'] && rowData['VIP']) || (!states['showVIP'] && states['showBlacklist']) || (!states['showVIP'] && !states['showBlacklist'] && !rowData['Blacklisted'])) && (!states['showConnected'] || rowData['Connected'])){
 
             const row = document.createElement("tr");
 
@@ -152,27 +153,37 @@ function sortTable(columnIndex, sortReverse=1) {
     const header = table.querySelectorAll("thead tr")[0].querySelectorAll("th")[columnIndex];
     header.textContent =  sortReverse ? "\u21A7"+ header.textContent : "\u21A5"+header.textContent;
     sortedBy=columnIndex;
+    document.getElementById('VIPCheckbox').checked = states['showVIP']
+    document.getElementById('BlacklistCheckbox').checked = states['showBlacklist']
+    document.getElementById('ConnectedCheckbox').checked = states['showConnected']
+    
 }
 // Example: Attach click event listeners to headers for sorting
 document.getElementById("Header name").addEventListener("click", ()         =>  {sortWay = !sortWay;                         sortTable(0, sortWay)}); 
-document.getElementById("Header Connected").addEventListener("click", ()    =>  {sortWay = !sortWay;                   sortTable(1, sortWay)}); 
+document.getElementById("Header Connected").addEventListener("click", ()    =>  {sortWay = !sortWay;                         sortTable(1, sortWay)}); 
 document.getElementById("Header MAC").addEventListener("click", ()          =>  {sortWay = !sortWay;                         sortTable(2, sortWay)}); 
-document.getElementById("Header IP").addEventListener("click", ()           =>  {sortWay = !sortWay;                          sortTable(3, sortWay)}); 
+document.getElementById("Header IP").addEventListener("click", ()           =>  {sortWay = !sortWay;                         sortTable(3, sortWay)}); 
 document.getElementById("Header LIP").addEventListener("click", ()          =>  {sortWay = !sortWay;                         sortTable(4, sortWay)}); 
-document.getElementById("Header Blacklist").addEventListener("click", ()    =>  {sortWay = !sortWay;                   sortTable(5, sortWay)}); 
+document.getElementById("Header Blacklist").addEventListener("click", ()    =>  {sortWay = !sortWay;                         sortTable(5, sortWay)}); 
 document.getElementById("Header VIP").addEventListener("click", ()          =>  {sortWay = !sortWay;                         sortTable(6, sortWay)}); 
-document.getElementById('BlacklistCheckbox').addEventListener('change', function()  {ShowBlacklist = this.checked;   fetchDataAndRefresh()});        
-document.getElementById('VIPCheckbox').addEventListener('change', function()        {ShowVIPonly = this.checked;     fetchDataAndRefresh()}); 
-document.getElementById('ConnectedCheckbox').addEventListener('change', function()  {ShowConnectedOnly = this.checked;     fetchDataAndRefresh()});
+document.getElementById('BlacklistCheckbox').addEventListener('change', function()  {states['showBlacklist'] = this.checked; fetchDataAndRefresh()});        
+document.getElementById('VIPCheckbox').addEventListener('change', function()        {states['showVIP'] = this.checked;       fetchDataAndRefresh()}); 
+document.getElementById('ConnectedCheckbox').addEventListener('change', function()  {states['showConnected'] = this.checked; fetchDataAndRefresh()});
+/*
+document.querySelectorAll('#Parameters th').forEach(cell => {
+    cell.addEventListener("click", () => {
+        console.log(cell.querySelector('input[type="checkbox"]').name)
+        states["show"+cell.querySelector('input[type="checkbox"]').name.replace('Checkbox', '')] = !states["show"+cell.querySelector('input[type="checkbox"]').name.replace('Checkbox', '')]
+        document.getElementById(cell.querySelector('input[type="checkbox"]').name).checked = states['showVIP'] = states["show"+cell.querySelector('input[type="checkbox"]').name.replace('Checkbox', '')]
+
+    })
+})*/
 
        // Function to fetch JSON data, generate table, and refresh every 5 seconds
 async function fetchDataAndRefresh() {
         // Call fetchJSONFile to load data from database/database.json
     fetchJSONFile(jsonFile)
     .then(data => {
-        document.getElementById('VIPCheckbox').checked = ShowVIPonly
-        document.getElementById('BlacklistCheckbox').checked = ShowBlacklist
-        document.getElementById('ConnectedCheckbox').checked = ShowConnectedOnly
         generateTable(data);
     });
     //setTimeout(fetchDataAndRefresh, 500); // Refresh every .5 seconds
