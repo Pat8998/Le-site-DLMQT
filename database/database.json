@@ -1,65 +1,92 @@
 [
     {
-        "name": "Office",
+        "name": "Device1",
         "Connected": true,
         "MAC": "00:1A:2B:3C:4D:5E",
-        "IP": "192.168.1.11",
-        "LastIP": "192.168.1.10"
+        "IP": "192.168.1.2",
+        "LastIP": "192.168.1.1",
+        "Blacklisted": false,
+        "VIP": false
     },
     {
-        "name": "Kitchen",
+        "name": "Device2",
+        "Connected": false,
+        "MAC": "00:1A:2B:3C:4D:5F",
+        "IP": "192.168.1.4",
+        "LastIP": "192.168.1.3",
+        "Blacklisted": true,
+        "VIP": true
+    },
+    {
+        "name": "Device3",
         "Connected": true,
         "MAC": "00:1A:2B:3C:4D:60",
-        "IP": "192.168.1.31",
-        "LastIP": "192.168.1.30"
+        "IP": "192.168.1.6",
+        "LastIP": "192.168.1.5",
+        "Blacklisted": false,
+        "VIP": false
     },
     {
-        "name": "Basement",
-        "Connected": true,
-        "MAC": "00:1A:2B:3C:4D:64",
-        "IP": "192.168.1.71",
-        "LastIP": "192.168.1.70"
-    },
-    {
-        "name": "Study",
-        "Connected": true,
-        "MAC": "00:1A:2B:3C:4D:66",
-        "IP": "192.168.1.91",
-        "LastIP": "192.168.1.90"
-    },
-    {
-        "name": "Garage",
-        "Connected": true,
-        "MAC": "00:1A:2B:3C:4D:62",
-        "IP": "192.168.1.51",
-        "LastIP": "192.168.1.50"
-    },
-    {
-        "name": "Garden",
-        "Connected": true,
-        "MAC": "00:1A:2B:3C:4D:63",
-        "IP": "192.168.1.61",
-        "LastIP": "192.168.1.60"
-    },
-    {
-        "name": "Living Room",
-        "Connected": true,
-        "MAC": "00:1A:2B:3C:4D:5F",
-        "IP": "192.168.1.21",
-        "LastIP": "192.168.1.20"
-    },
-    {
-        "name": "Attic",
-        "Connected": false,
-        "MAC": "00:1A:2B:3C:4D:65",
-        "IP": "192.168.1.81",
-        "LastIP": "192.168.1.80"
-    },
-    {
-        "name": "Bedroom",
+        "name": "Device4",
         "Connected": false,
         "MAC": "00:1A:2B:3C:4D:61",
-        "IP": "192.168.1.41",
-        "LastIP": "192.168.1.40"
+        "IP": "192.168.1.8",
+        "LastIP": "192.168.1.7",
+        "Blacklisted": false,
+        "VIP": false
+    },
+    {
+        "name": "Device5",
+        "Connected": true,
+        "MAC": "00:1A:2B:3C:4D:62",
+        "IP": "192.168.1.10",
+        "LastIP": "192.168.1.9",
+        "Blacklisted": false,
+        "VIP": false
+    },
+    {
+        "name": "Device6",
+        "Connected": false,
+        "MAC": "00:1A:2B:3C:4D:63",
+        "IP": "192.168.1.12",
+        "LastIP": "192.168.1.11",
+        "Blacklisted": false,
+        "VIP": false
+    },
+    {
+        "name": "Device7",
+        "Connected": true,
+        "MAC": "00:1A:2B:3C:4D:64",
+        "IP": "192.168.1.14",
+        "LastIP": "192.168.1.13",
+        "Blacklisted": true,
+        "VIP": true
+    },
+    {
+        "name": "Device8",
+        "Connected": false,
+        "MAC": "00:1A:2B:3C:4D:65",
+        "IP": "192.168.1.16",
+        "LastIP": "192.168.1.15",
+        "Blacklisted": false,
+        "VIP": false
+    },
+    {
+        "name": "Device9",
+        "Connected": true,
+        "MAC": "00:1A:2B:3C:4D:66",
+        "IP": "192.168.1.18",
+        "LastIP": "192.168.1.17",
+        "Blacklisted": false,
+        "VIP": true
+    },
+    {
+        "name": "Device10",
+        "Connected": false,
+        "MAC": "00:1A:2B:3C:4D:67",
+        "IP": "192.168.1.20",
+        "LastIP": "192.168.1.19",
+        "Blacklisted": true,
+        "VIP": true
     }
 ]

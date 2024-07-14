@@ -88,6 +88,17 @@ def Login():
     else:
         return "Caca"
 
+@app.route('/change_priority')
+def change_priority():
+    device = request.args.get('device')
+    priority = request.args.get('priority')
+    pvalue = request.args.get('previousvalue')
+    print(pvalue)
+    server_change_priority(device, priority, pvalue)
+    try:
+        return 'Success'
+    except:
+        return 'Fail'
 
 
 

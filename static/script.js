@@ -69,7 +69,7 @@ function generateTable(jsonData) {
        // Iterate through keys in rowData
        Object.keys(rowData).forEach((key, index) => {
         const cell = document.createElement("td");
-        if (index === 1) { // Check if it's the second column (index 1)
+        if (index == 1) { // Check if it's the second column (index 1)
             // Create a button for the second column
             const button = document.createElement("button");
             button.textContent = rowData[key];
@@ -81,6 +81,22 @@ function generateTable(jsonData) {
                         } else {
                             
                             alert(`Failed to Disconnect ${rowData['name']} (MAC: ${rowData['MAC']})`);
+                        }}))})
+            cell.appendChild(button); // Append button to the cell
+        } else if(index > 4) { // Check if it's the last 2 rows
+            // Create a button for the those
+            const button = document.createElement("button");
+            button.textContent = rowData[key];
+            button.addEventListener("click", () => {
+                fetch('change_priority?device=' + encodeURIComponent(rowData['MAC']) + 
+      '&priority=' + encodeURIComponent((index - 5) ? "VIP" : "blacklist") + 
+      '&previousvalue=' + encodeURIComponent(rowData[key])).then( 
+                    response => response.text().then(value => {
+                        if (value == 'Success'){
+                            console.log('Successfully changed value: '+rowData['name'])
+                        } else {
+                            
+                            alert(`Failed to Change Value ${rowData['name']} (MAC: ${rowData['MAC']})`);
                         }}))})
             cell.appendChild(button); // Append button to the cell
         } else {
@@ -135,6 +151,8 @@ document.getElementById("Header Connected").addEventListener("click", () =>  {so
 document.getElementById("Header MAC").addEventListener("click", () =>  {sortWay = !sortWay; sortTable(2, sortWay)}); 
 document.getElementById("Header IP").addEventListener("click", () =>  {sortWay = !sortWay; sortTable(3, sortWay)}); 
 document.getElementById("Header LIP").addEventListener("click", () =>  {sortWay = !sortWay; sortTable(4, sortWay)}); 
+document.getElementById("Header Blacklist").addEventListener("click", () =>  {sortWay = !sortWay; sortTable(5, sortWay)}); 
+document.getElementById("Header VIP").addEventListener("click", () =>  {sortWay = !sortWay; sortTable(6, sortWay)}); 
 
 
        // Function to fetch JSON data, generate table, and refresh every 5 seconds

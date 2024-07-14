@@ -1,5 +1,6 @@
 # **Le-site-DLMQT**
 
-## TODO list:
-- Add Blacklist (Same as connected) + Checkbox to remove them?
-- Add VIP option (ez, same as Connected)
+## TODO list :
+
+- Colours for VIP (gold)/Conncted(green)/Blacklist(red)
+- Checkbox to remove Blacklisted?

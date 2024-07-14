@@ -6,13 +6,13 @@ DB = os.path.dirname(os.path.abspath(__file__))+'\\'+DB
 
 
 
-def readPlaces():
+def ReadPlaces():
     with open(DB, 'r') as db:
         data = json.load(db)
         for i in data:
             print(i)
 
-def addPlace( MAC:str, Connected:bool, name:str="Noname", LastIP:str=None, CurrentIP=None):
+def AddEntry( MAC:str, Connected:bool, name:str="Noname", LastIP:str=None, CurrentIP=None, Blacklist:bool=False, VIP:bool=False):
     with open(DB, 'r+') as db:
         data = json.load(db)
         if data != []:
@@ -24,38 +24,57 @@ def addPlace( MAC:str, Connected:bool, name:str="Noname", LastIP:str=None, Curre
                           CurrentIP=entry[IP]
                     if name=="Noname" :      #check to keep the data if no fresh one Has been detected
                           name=entry[name]
-            data = removeEntries(data, "MAC", MAC)
+            data = RemoveEntries(data, "MAC", MAC)
 
-        data.append({"name" : name, "Connected":Connected, "MAC":MAC, "IP": CurrentIP, "LastIP":LastIP})
+        data.append({"name" : name, "Connected":Connected, "MAC":MAC, "IP": CurrentIP, "LastIP":LastIP, "Blacklisted": Blacklist, "VIP":VIP})
         print(data,"\n")
         db.seek(0)
         json.dump(data, db, indent=4)
         db.truncate()
         
-def ChangeValue( MAC:str, Connected:bool=None, name:str=None, LastIP:str=None, CurrentIP=None):
+def ChangeValue(MAC: str, Connected: bool = None, name: str = None, LastIP: str = None, CurrentIP: str = None, Blacklist: bool = None, VIP: bool = None):
+    #print(f"ChangeValue called with MAC: {MAC}, Connected: {Connected}, name: {name}, LastIP: {LastIP}, CurrentIP: {CurrentIP}, Blacklist: {Blacklist}, VIP: {VIP}")
     with open(DB, 'r+') as db:
         data = json.load(db)
-        if data != []:
+        if data:
             for entry in data:
-                if entry['MAC']==MAC:        #Refresh if MAC already exists
-                    if LastIP is None:  # check to keep the data if no fresh one has been detected
-                        LastIP = entry.get('LastIP', LastIP)
-                    if CurrentIP is None:  # check to keep the data if no fresh one has been detected
-                        CurrentIP = entry.get('IP', CurrentIP)
-                    if name is None:  # check to keep the data if no fresh one has been detected
-                        name = entry.get('name', name)
+                if entry['MAC'] == MAC:  # Refresh if MAC already exists
+                    if LastIP is None:
+                        LastIP = entry['LastIP']
+                    if CurrentIP is None:
+                        CurrentIP = entry['IP']
+                    if name is None:
+                        name = entry['name']
                     if Connected is None:
-                        Connected = entry.get('Connected', Connected)
-                    data = removeEntries(data, "MAC", MAC)
-                    data.append({"name" : name, "Connected":Connected, "MAC":MAC, "IP": CurrentIP, "LastIP":LastIP})        
+                        Connected = entry['Connected']
+                    if Blacklist is None:
+                        Blacklist = entry['Blacklisted']
+                    if VIP is None:
+                        VIP = entry['VIP']
+
+                    # Update the entry
+                    entry.update({
+                        "name": name,
+                        "Connected": Connected,
+                        "MAC": MAC,
+                        "IP": CurrentIP,
+                        "LastIP": LastIP,
+                        "Blacklisted": Blacklist,
+                        "VIP": VIP
+                    })
+                    #print(f"Updated entry: {entry}")
+
+                    # Write the updated data back to the JSON file
                     db.seek(0)
                     json.dump(data, db, indent=4)
                     db.truncate()
-                else:
-                    print("ERROR : Can't change data if it doesn't exist yet")
+                    return
+            print("ERROR: Can't change data if it doesn't exist yet")
+        else:
+            print("ERROR: No data found in the database")
 
 
-def removePlace(name):
+def RemoveEntry(name):
     new_data = []
     with open(DB, 'r+') as db:
         data = json.load(db)
@@ -70,7 +89,7 @@ def removePlace(name):
         with open(DB, "w") as db:
             json.dump(new_data, db, indent=4)
 
-def delete_data():    # Deletes an element from the array
+def DeleteData():    # Deletes an element from the array
     new_data = []
     with open(DB, "r") as f:
         data = json.load(f)
@@ -90,11 +109,10 @@ def delete_data():    # Deletes an element from the array
         json.dump(new_data, f, indent=4)
 
 # Function to remove entries based on a condition
-def removeEntries(data, key, value):
+def RemoveEntries(data, key, value):
     return [entry for entry in data if entry.get(key) != value]
 
 
 
 
-#removePlace('test')
 
