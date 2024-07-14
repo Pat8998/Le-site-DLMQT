@@ -4,6 +4,7 @@ let sortWay = true;
 let ws = null; // Initialize as null
 let ShowBlacklist = true;
 let ShowVIPonly = false;
+let ShowConnectedOnly = true;
 
 
 async function server_ip() {
@@ -66,7 +67,7 @@ function generateTable(jsonData) {
     
 
     jsonData.forEach(rowData => {       
-        if ((ShowVIPonly && rowData['VIP']) || (!ShowVIPonly && ShowBlacklist) || (!ShowVIPonly && !ShowBlacklist && !rowData['Blacklisted'])){
+        if (((ShowVIPonly && rowData['VIP']) || (!ShowVIPonly && ShowBlacklist) || (!ShowVIPonly && !ShowBlacklist && !rowData['Blacklisted'])) && (!ShowConnectedOnly || rowData['Connected'])){
 
             const row = document.createElement("tr");
 
@@ -110,7 +111,9 @@ function generateTable(jsonData) {
                 }
                 row.appendChild(cell); // Append cell to the row
             });
-
+                row.style.backgroundColor = rowData['Connected'] ? "#00ff37" : "white"
+                row.style.background = rowData['Blacklisted'] ?  "red" : row.style.backgroundColor
+                rowData['VIP'] ? row.classList.add('gold') : row.classList.remove('gold') ;
                 tableBody.appendChild(row);
     }});
     sortTable(sortedBy, sortWay);
@@ -151,21 +154,16 @@ function sortTable(columnIndex, sortReverse=1) {
     sortedBy=columnIndex;
 }
 // Example: Attach click event listeners to headers for sorting
-document.getElementById("Header name").addEventListener("click", () => {sortWay = !sortWay; sortTable(0, sortWay)}); 
-document.getElementById("Header Connected").addEventListener("click", () =>  {sortWay = !sortWay; sortTable(1, sortWay)}); 
-document.getElementById("Header MAC").addEventListener("click", () =>  {sortWay = !sortWay; sortTable(2, sortWay)}); 
-document.getElementById("Header IP").addEventListener("click", () =>  {sortWay = !sortWay; sortTable(3, sortWay)}); 
-document.getElementById("Header LIP").addEventListener("click", () =>  {sortWay = !sortWay; sortTable(4, sortWay)}); 
-document.getElementById("Header Blacklist").addEventListener("click", () =>  {sortWay = !sortWay; sortTable(5, sortWay)}); 
-document.getElementById("Header VIP").addEventListener("click", () =>  {sortWay = !sortWay; sortTable(6, sortWay)}); 
-document.getElementById('BlacklistCheckbox').addEventListener('change', function() {
-    ShowBlacklist = this.checked
-    fetchDataAndRefresh()
-});        
-document.getElementById('VIPCheckbox').addEventListener('change', function() {
-    ShowVIPonly = this.checked
-    fetchDataAndRefresh()
-});
+document.getElementById("Header name").addEventListener("click", ()         =>  {sortWay = !sortWay;                         sortTable(0, sortWay)}); 
+document.getElementById("Header Connected").addEventListener("click", ()    =>  {sortWay = !sortWay;                   sortTable(1, sortWay)}); 
+document.getElementById("Header MAC").addEventListener("click", ()          =>  {sortWay = !sortWay;                         sortTable(2, sortWay)}); 
+document.getElementById("Header IP").addEventListener("click", ()           =>  {sortWay = !sortWay;                          sortTable(3, sortWay)}); 
+document.getElementById("Header LIP").addEventListener("click", ()          =>  {sortWay = !sortWay;                         sortTable(4, sortWay)}); 
+document.getElementById("Header Blacklist").addEventListener("click", ()    =>  {sortWay = !sortWay;                   sortTable(5, sortWay)}); 
+document.getElementById("Header VIP").addEventListener("click", ()          =>  {sortWay = !sortWay;                         sortTable(6, sortWay)}); 
+document.getElementById('BlacklistCheckbox').addEventListener('change', function()  {ShowBlacklist = this.checked;   fetchDataAndRefresh()});        
+document.getElementById('VIPCheckbox').addEventListener('change', function()        {ShowVIPonly = this.checked;     fetchDataAndRefresh()}); 
+document.getElementById('ConnectedCheckbox').addEventListener('change', function()  {ShowConnectedOnly = this.checked;     fetchDataAndRefresh()});
 
        // Function to fetch JSON data, generate table, and refresh every 5 seconds
 async function fetchDataAndRefresh() {
@@ -174,6 +172,7 @@ async function fetchDataAndRefresh() {
     .then(data => {
         document.getElementById('VIPCheckbox').checked = ShowVIPonly
         document.getElementById('BlacklistCheckbox').checked = ShowBlacklist
+        document.getElementById('ConnectedCheckbox').checked = ShowConnectedOnly
         generateTable(data);
     });
     //setTimeout(fetchDataAndRefresh, 500); // Refresh every .5 seconds

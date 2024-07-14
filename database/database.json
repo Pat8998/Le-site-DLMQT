@@ -1,12 +1,12 @@
 [
     {
         "name": "Device1",
-        "Connected": true,
+        "Connected": false,
         "MAC": "00:1A:2B:3C:4D:5E",
         "IP": "192.168.1.2",
         "LastIP": "192.168.1.1",
         "Blacklisted": false,
-        "VIP": false
+        "VIP": true
     },
     {
         "name": "Device2",
@@ -42,7 +42,7 @@
         "IP": "192.168.1.10",
         "LastIP": "192.168.1.9",
         "Blacklisted": false,
-        "VIP": false
+        "VIP": true
     },
     {
         "name": "Device6",
@@ -51,7 +51,7 @@
         "IP": "192.168.1.12",
         "LastIP": "192.168.1.11",
         "Blacklisted": false,
-        "VIP": false
+        "VIP": true
     },
     {
         "name": "Device7",
@@ -78,7 +78,7 @@
         "IP": "192.168.1.18",
         "LastIP": "192.168.1.17",
         "Blacklisted": false,
-        "VIP": true
+        "VIP": false
     },
     {
         "name": "Device10",
@@ -87,6 +87,6 @@
         "IP": "192.168.1.20",
         "LastIP": "192.168.1.19",
         "Blacklisted": false,
-        "VIP": true
+        "VIP": false
     }
 ]

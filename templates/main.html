@@ -3,44 +3,23 @@
 <head>
     <title>Admin Panel</title>
     <link rel="icon" type="image/vnd.microsoft.icon" href="/static/favicon.ico">
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        table, th, td {
-            border: 1px solid black;
-        }
-        th, td {
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .status-message {
-      position: fixed; /* Fixed positioning to stay at the top */
-      top: 10px; /* Distance from the top of the viewport */
-      left: 50%; /* Center horizontally */
-      transform: translateX(-50%); /* Center horizontally using transform */
-      background-color: rgb(183, 0, 255); /* Magenta background color */
-      color: rgb(215, 199, 253); /* White text color for contrast */
-      padding: 10px; /* Padding around the text */
-      border-radius: 5px; /* Rounded corners */
-      display: none; /* Initially hidden */
-      z-index: 9999; /* Ensure it appears above other content */
-    }
-    </style>
+    <link rel="stylesheet" href="../static/styles.css">
 </head>
 <body>
 
 <h2>Connections</h2>
-<div>
-    <label for="BlacklistCheckbox">Show blacklisted: </label>
-    <input type="checkbox" id="BlacklistCheckbox" name="BlacklistCheckbox">
-    <label for="VIPCheckbox">Show only VIP :</label>
-    <input type="checkbox" id="VIPCheckbox" name="VIPCheckbox">
-</div>
+<table>
+    <tbody>
+        <tr>
+            <label for="VIPCheckbox">Show only connected :</label>
+            <input type="checkbox" id="ConnectedCheckbox" name=ConnectedCheckbox">
+            <label for="BlacklistCheckbox">Show blacklisted: </label>
+            <input type="checkbox" id="BlacklistCheckbox" name="BlacklistCheckbox">
+            <label for="VIPCheckbox">Show only VIP :</label>
+            <input type="checkbox" id="VIPCheckbox" name="VIPCheckbox">
+        </tr>
+    </tbody>
+</table>
 
 
 <table id="jsonTable">
