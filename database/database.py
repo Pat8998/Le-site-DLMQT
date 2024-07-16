@@ -2,7 +2,7 @@ import os
 import json
 
 DB = "database.json" #path to database
-DB = os.path.dirname(os.path.abspath(__file__))+'\\'+DB
+DB = os.path.join(os.path.dirname(os.path.abspath(__file__)), DB)
 
 
 
