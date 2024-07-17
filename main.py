@@ -1,6 +1,5 @@
-from flask import url_for, Flask, request, json, jsonify, render_template, send_from_directory, redirect
+from flask import url_for, Flask, request, json, jsonify, render_template, send_from_directory, redirect, make_response
 import os
-from static.Check_MAC import *
 from flask_sock import Sock
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
@@ -45,13 +44,36 @@ observer = Observer()
 observer.schedule(event_handler, path=json_file_path, recursive=False)
 observer.start()
 
+
+
+
+
 @app.route('/')
 def home():
-    if Check_MAC(request.remote_addr):
+    if request.cookies.get('pwd') == '43568a72689a2759140dfb25d2301912913e5c2d54d450fc55389acacb8ab1dc':
         return render_template('main.html')
     else:
-        return render_template('Connection.html')
-    
+        return redirect(url_for('login_page'))
+
+@app.route('/login')
+def login_page():
+	return render_template('Connection.html')
+
+
+@app.route('/loginscript', methods=['GET'])
+def Login():
+    login = request.args.get('login')
+    hash_obj = hashlib.sha256()
+    hash_obj.update(login.encode('utf-8'))
+    hash_obj.update(hash_obj.hexdigest().encode('utf-8'))
+    print(hash_obj.hexdigest())
+    if hash_obj.hexdigest() == '43568a72689a2759140dfb25d2301912913e5c2d54d450fc55389acacb8ab1dc' :
+        response = make_response("Login OK")
+        response.set_cookie('pwd', hash_obj.hexdigest())
+        return response
+    else:
+        return "Login not OK :"+login
+
 @app.route('/database/database.json')
 def get_json():
     return send_from_directory('database', "database.json")
@@ -74,19 +96,6 @@ def disconnect():
     except:
         return 'Fail'
     
-
-@app.route('/login', methods=['GET'])
-def Login():
-    login = request.args.get('login')
-    hash_obj = hashlib.sha256()
-    hash_obj.update(login.encode('utf-8'))
-    hash_obj.update(hash_obj.hexdigest().encode('utf-8'))
-    print(hash_obj.hexdigest())
-    if hash_obj.hexdigest() == '43568a72689a2759140dfb25d2301912913e5c2d54d450fc55389acacb8ab1dc' :
-        Whitelist.append(get_mac(request.remote_addr))
-        return 'loginOK'
-    else:
-        return "Caca"
 
 @app.route('/change_priority')
 def change_priority():
