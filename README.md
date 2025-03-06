@@ -2,4 +2,5 @@
 
 ## TODO list :
 
-- Colours for VIP (gold)/Conncted(green)/Blacklist(red)
+- Upload the script to make it work on the raspberry pi
+- Upload the openwrt image I made 
