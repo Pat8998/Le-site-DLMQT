@@ -21,12 +21,13 @@ json_file_path = os.path.join(os.path.dirname(__file__), 'database')
 
 class JSONFileEventHandler(FileSystemEventHandler):
     def on_closed(self, event):
-        print("fileclosed :",communication_queue.get())
-        if event.is_directory : #or ignore_event.is_set() or communication_queue.get():
+        #print("fileclosed :",ignore_event)
+        if event.is_directory or ignore_event.is_set() or que :
             print('just read no worries')
             return
         else:
-            print('json_updated:', communication_queue.get())
+            print('json_updated:', event)
+            self.previous_hash = current_hash
             for ws in websockets:
                 try:
                     ws.send('json_updated')

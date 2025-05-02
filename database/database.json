@@ -1,91 +1,19 @@
 [
     {
-        "name": "Device1",
+        "name": "Unknown_192.168.1.2",
         "Connected": false,
-        "MAC": "00:1A:2B:3C:4D:5E",
+        "MAC": "c0:9f:42:ba:36:c3",
+        "IP": null,
+        "LastIP": null,
+        "Blacklisted": false,
+        "VIP": false
+    },
+    {
+        "name": "Unknown_192.168.1.2",
+        "Connected": true,
+        "MAC": "32:7c:5a:94:d3:15",
         "IP": "192.168.1.2",
-        "LastIP": "192.168.1.1",
-        "Blacklisted": true,
-        "VIP": true
-    },
-    {
-        "name": "Device2",
-        "Connected": false,
-        "MAC": "00:1A:2B:3C:4D:5F",
-        "IP": "192.168.1.4",
-        "LastIP": "192.168.1.3",
-        "Blacklisted": true,
-        "VIP": false
-    },
-    {
-        "name": "Device3",
-        "Connected": false,
-        "MAC": "00:1A:2B:3C:4D:60",
-        "IP": "192.168.1.6",
-        "LastIP": "192.168.1.5",
-        "Blacklisted": false,
-        "VIP": false
-    },
-    {
-        "name": "Device4",
-        "Connected": false,
-        "MAC": "00:1A:2B:3C:4D:61",
-        "IP": "192.168.1.8",
-        "LastIP": "192.168.1.7",
-        "Blacklisted": true,
-        "VIP": false
-    },
-    {
-        "name": "Device5",
-        "Connected": true,
-        "MAC": "00:1A:2B:3C:4D:62",
-        "IP": "192.168.1.10",
-        "LastIP": "192.168.1.9",
-        "Blacklisted": false,
-        "VIP": true
-    },
-    {
-        "name": "Device6",
-        "Connected": false,
-        "MAC": "00:1A:2B:3C:4D:63",
-        "IP": "192.168.1.12",
-        "LastIP": "192.168.1.11",
-        "Blacklisted": false,
-        "VIP": true
-    },
-    {
-        "name": "Device7",
-        "Connected": true,
-        "MAC": "00:1A:2B:3C:4D:64",
-        "IP": "192.168.1.14",
-        "LastIP": "192.168.1.13",
-        "Blacklisted": false,
-        "VIP": false
-    },
-    {
-        "name": "Device8",
-        "Connected": false,
-        "MAC": "00:1A:2B:3C:4D:65",
-        "IP": "192.168.1.16",
-        "LastIP": "192.168.1.15",
-        "Blacklisted": false,
-        "VIP": false
-    },
-    {
-        "name": "Device9",
-        "Connected": true,
-        "MAC": "00:1A:2B:3C:4D:66",
-        "IP": "192.168.1.18",
-        "LastIP": "192.168.1.17",
-        "Blacklisted": false,
-        "VIP": false
-    },
-    {
-        "name": "Device10",
-        "Connected": false,
-        "MAC": "00:1A:2B:3C:4D:67",
-        "IP": "192.168.1.20",
-        "LastIP": "192.168.1.19",
+        "LastIP": null,
         "Blacklisted": false,
         "VIP": false
     }
